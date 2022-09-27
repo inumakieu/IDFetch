@@ -21,7 +21,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Run build script
-        run: |
-          curl 'https://anilist.co/sitemap/anime-0.xml' | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' > ids.txt \
-          curl 'https://anilist.co/sitemap/anime-1.xml' | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' >> ids.txt
-        shell: bash
+        uses: wei/curl@master
+        with:
+          args: https://anilist.co/sitemap/anime-0.xml | grep -Eo '([0-9]+)' > ids.txt
+          
+      - name: Run build script
+        uses: wei/curl@master
+        with:
+          args: https://anilist.co/sitemap/anime-1.xml | grep -Eo '([0-9]+)' >> ids.txt
+          
+      
+
