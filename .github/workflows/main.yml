@@ -20,9 +20,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Install curl
-        run: apt-get install curl
-        shell: bash
       - name: Fetch data
         shell: bash
         run: |
