@@ -20,6 +20,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Commit files
+        run: |
+          git clone https://github.com/5H4D0WILA/IDFetch.git
       - name: Run build script
         run: |
           curl https://anilist.co/sitemap/anime-0.xml | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' > ./ids.txt
