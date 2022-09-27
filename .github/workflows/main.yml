@@ -20,12 +20,20 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Fetch data
+      - name: Run build script
         shell: bash
         run: |
           curl https://anilist.co/sitemap/anime-0.xml | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' > ./ids.txt
           curl https://anilist.co/sitemap/anime-1.xml | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' >> ./ids.txt
 
-          
-      
-
+      - name: Commit files
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update ids.txt" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
