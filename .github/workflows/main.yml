@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: FetchId
 
 # Controls when the workflow will run
 on:
@@ -22,6 +22,6 @@ jobs:
     steps:
       - name: Run build script
         run: |
-          curl https://anilist.co/sitemap/anime-0.xml | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' > ids.txt \
-          curl https://anilist.co/sitemap/anime-1.xml | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' >> ids.txt
+          curl 'https://anilist.co/sitemap/anime-0.xml' | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' > ids.txt \
+          curl 'https://anilist.co/sitemap/anime-1.xml' | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' >> ids.txt
         shell: bash
