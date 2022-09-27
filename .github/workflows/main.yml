@@ -6,7 +6,7 @@ name: FetchId
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   schedule:
-   - cron: "0 0 * * *"
+   - cron:  "* */1 * * *"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -20,22 +20,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Commit files
-        run: |
-          git clone https://github.com/5H4D0WILA/IDFetch.git
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Run build script
+        shell: bash
         run: |
           curl https://anilist.co/sitemap/anime-0.xml | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' > ./ids.txt
           curl https://anilist.co/sitemap/anime-1.xml | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' >> ./ids.txt
 
-      - name: Setup Git
-        run: |
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "GITHUB BOT"
-          git config --global credential.helper store
-          echo "https://${{ secrets.USERNAME }}:${{ secrets.TOKEN }}@github.com" > ~/.git-credentials
       - name: Commit files
         run: |
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
           git add .
           git commit -m "Update ids.txt" -a
       - name: Push changes
