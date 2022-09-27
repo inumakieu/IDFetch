@@ -23,12 +23,12 @@ jobs:
       - name: Run build script
         uses: wei/curl@master
         with:
-          args: https://anilist.co/sitemap/anime-0.xml | grep -Eo '([0-9]+)' > ids.txt
+          args: https://anilist.co/sitemap/anime-0.xml | grep -Eo '([0-9]+)' > ./ids.txt
           
       - name: Run build script
         uses: wei/curl@master
         with:
-          args: https://anilist.co/sitemap/anime-1.xml | grep -Eo '([0-9]+)' >> ids.txt
+          args: https://anilist.co/sitemap/anime-1.xml | grep -Eo '([0-9]+)' >> ./ids.txt
           
       
 
