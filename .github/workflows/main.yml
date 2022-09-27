@@ -20,7 +20,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Run build script
+      - name: Install curl
+        run: apt-get install curl
+        shell: bash
+      - name: Fetch data
         shell: bash
         run: |
           curl https://anilist.co/sitemap/anime-0.xml | grep -Eo 'anime/([0-9]+)' | grep -Eo '([0-9]+)' > ./ids.txt \
